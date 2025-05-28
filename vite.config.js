@@ -4,5 +4,5 @@ import react from '@vitejs/plugin-react'
 // https://vite.dev/config/
 export default defineConfig({
   plugins: [react()],
-  base: '/moca/', // 레포지토리 이름
+  base: '/', // 레포지토리 이름
 });
