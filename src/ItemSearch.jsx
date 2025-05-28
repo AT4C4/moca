@@ -16,25 +16,22 @@ const ItemSearch = () => {
         }
 
         // 한글 여부 확인 함수
-        const isKorean = (text) => /[ㄱ-ㅎ|ㅏ-ㅣ|가-힣]/.test(text);
         const isEnglish = (text) => /^[a-zA-Z]+$/.test(text);
 
         // 검색어 길이 체크
-        if ((isEnglish(trimmed) && trimmed.length < 3) || (isKorean(trimmed) && trimmed.length < 2)) {
+        if ((isEnglish(trimmed) && trimmed.length < 3) || (!isEnglish(trimmed) && trimmed.length < 2)) {
             setFilteredItems([]);
             return;
         }
 
         // 필터링
         const filtered = Object.entries(itemsData).filter(([code, names]) => {
-            const codeStr = code.toString();
             const kmsName = names.KMS || '';
             const gmsName = names.GMS || '';
 
             const lowerSearch = trimmed.toLowerCase();
 
             return (
-                codeStr.includes(lowerSearch) ||
                 kmsName.toLowerCase().includes(lowerSearch) ||
                 gmsName.toLowerCase().includes(lowerSearch)
             );
@@ -51,7 +48,7 @@ const ItemSearch = () => {
         <div style={{ padding: 20, width: 1000, height: "100vh", margin: 'auto' }}>
             <input
                 type="text"
-                placeholder="아이템 코드 또는 이름 검색 (한글/영어 모두 가능, 한글 최소 2글자, 영어 최소 3글자)"
+                placeholder="이름 검색 (한글/영어 모두 가능, 한글 최소 2글자, 영어 최소 3글자)"
                 value={search}
                 onChange={(e) => setSearch(e.target.value)}
                 style={{
@@ -92,7 +89,20 @@ const ItemSearch = () => {
                     </tbody>
                 </table>
             ) : (
-                search && <p>검색 결과가 없습니다.</p>
+                search && (() => {
+                    const trimmed = search.trim();
+                    const isEnglish = /^[a-zA-Z]+$/.test(trimmed);
+
+                    if ((isEnglish && trimmed.length < 3) || (!isEnglish && trimmed.length < 2)) {
+                        return (
+                            <p>
+                                검색어가 너무 짧습니다. {isEnglish ? '영어는 최소 3글자 이상 입력해주세요.' : '한글 및 기타는 최소 2글자 이상 입력해주세요.'}
+                            </p>
+                        );
+                    } else {
+                        return <p>검색 결과가 없습니다.</p>;
+                    }
+                })()
             )}
         </div>
     );
