@@ -45,7 +45,7 @@ const ItemSearch = () => {
     }, [search, itemsData]);
 
     return (
-        <div style={{ padding: 20, width: 1000, height: "100vh", margin: 'auto' }}>
+        <div style={{ padding: 20, width: "1000px", maxWidth:"100%", height: "100vh", margin: 'auto' }}>
             <input
                 type="text"
                 placeholder="이름 검색 (한글/영어 모두 가능, 한글 최소 2글자, 영어 최소 3글자)"
@@ -64,9 +64,9 @@ const ItemSearch = () => {
                 <table style={{ width: '100%', borderCollapse: 'collapse' }}>
                     <thead>
                     <tr style={{ borderBottom: '1px solid #ccc' }}>
-                        <th style={{ textAlign: 'left', padding: 8, width: 100 }}>아이템 코드</th>
-                        <th style={{ textAlign: 'left', padding: 8, width: 200 }}>KMS 이름</th>
-                        <th style={{ textAlign: 'left', padding: 8, width: 200 }}>GMS 이름</th>
+                        <th style={{ textAlign: 'left', padding: 8, width: "20%" }}>아이템 코드</th>
+                        <th style={{ textAlign: 'left', padding: 8, width: "40%" }}>KMS 이름</th>
+                        <th style={{ textAlign: 'left', padding: 8, width: "40%" }}>GMS 이름</th>
                     </tr>
                     </thead>
                     <tbody>
